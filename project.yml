@@ -1,0 +1,58 @@
+name: MyExpense
+options:
+  bundleIdPrefix: com.example.myexpense   # TODO: replace with your Apple Developer bundle prefix
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+packages:
+  MyExpenseCore:
+    path: .
+
+targets:
+  MyExpense:
+    type: application
+    platform: iOS
+    sources:
+      - path: MyExpenseApp
+    dependencies:
+      - package: MyExpenseCore
+        product: MyExpenseCore
+      - package: MyExpenseCore
+        product: MyExpenseFeatures
+    info:
+      path: MyExpenseApp/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Param_Expense
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+        # Set to the published https privacy policy before release (FR-113).
+        MEPrivacyPolicyURL: ""
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.myexpense.app
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_USER_SCRIPT_SANDBOXING: YES
+        SWIFT_STRICT_CONCURRENCY: complete
+
+schemes:
+  MyExpense:
+    build:
+      targets:
+        MyExpense: all
+    run:
+      config: Debug
+    archive:
+      config: Release
